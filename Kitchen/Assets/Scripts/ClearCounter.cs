@@ -2,10 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClearCounter : MonoBehaviour
+public class ClearCounter : BaseCounter
 {
-    public void Interact()
+    [SerializeField] private KitchenObjectSO kitchenObjectSO;
+
+    public override void Interact(Player player)
     {
-        Debug.Log("Interact");
+        if (!HasKitchenObject())
+        {
+            //There is no kitchenObject here
+            if (player.HasKitchenObject())
+            {
+                //Player is carrying something
+                player.GetKitchenObject().SetKitchenObjectParent(this);
+            }
+            else
+            {
+                //Player not carrying anything
+            }
+        }
+        else
+        {
+            //There is a kitchenObject here
+            if (player.HasKitchenObject())
+            {
+                //Player is carrying something
+            }
+            else
+            {
+                //Player not carrying anything
+                GetKitchenObject().SetKitchenObjectParent(player);
+            }
+        }
     }
 }
